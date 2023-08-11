@@ -38,10 +38,18 @@ class Course(models.Model):
     credit_hours = models.IntegerField()
     course_image = models.ImageField(upload_to='course_images/')
     course_type = models.CharField(max_length=100)
-    course_pdf = models.FileField(upload_to='course_pdfs/', blank=True) 
+    course_files = models.ManyToManyField('CourseFile', related_name='courses')
+ 
     
     def __str__(self):
         return self.course_name
+    
+class CourseFile(models.Model):
+    file = models.FileField(upload_to='course_files/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.file.name    
 class Services(models.Model):
     service_name = models.CharField(max_length=100)
     service_description = models.TextField() 

@@ -4,8 +4,9 @@ from django.contrib import admin
 # students/admin.py
 
 from django.contrib import admin
-from .models import Course, Services, Student
+from .models import Course, CourseFile, Services, Student
 
 admin.site.register(Student)
 admin.site.register(Course)
+admin.site.register(CourseFile)
 admin.site.register(Services)

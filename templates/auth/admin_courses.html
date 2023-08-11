@@ -9,35 +9,35 @@
     <thead>
       <tr>
         <th>Course Name</th>
-        
         <th>Course Type</th>
-        <th>Course PDF</th>
+        <th>Course Files</th>
       </tr>
     </thead>
     <tbody>
       {% for course in courses %}
         <tr>
           <td>{{ course.course_name }}</td>
-          
           <td>{{ course.course_type }}</td>
           <td>
-            {% if course.course_pdf %}
-              <a href="{{ course.course_pdf.url }}" target="_blank">View PDF</a>
-              <form method="post" enctype="multipart/form-data">
+            {% for file in course.course_files.all %}
+              <p>
+                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <input type="file" name="course_files">
+                  <button type="submit">Change File</button>
+                </form>
+              </p>
+            {% endfor %}
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file" name="course_pdf">
-                <button type="submit">Change PDF</button>
+                <input type="hidden" name="course_name" value="{{ course.course_name }}">
+                <input type="file" name="course_file">
+                <button type="submit">Upload File</button>
               </form>
-            {% else %}
-              <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" name="course_pdf">
-                <button type="submit">Upload PDF</button>
-              </form>
-            {% endif %}
           </td>
         </tr>
       {% endfor %}
     </tbody>
-  </table>
+</table>
 

@@ -26,10 +26,24 @@ def students_detail(request):
     return render(request, 'auth/students_detail.html', {'users': all_users})
 @user_passes_test(is_staff_user)
 def admin_courses(request):
-    # Retrieve all users
+    if request.method == 'POST':
+        course_name = request.POST.get('course_name')
+        uploaded_file = request.FILES.get('course_file')
+
+        if course_name and uploaded_file:
+            try:
+                course = Course.objects.get(course_name=course_name)
+                course_file = CourseFile.objects.create(file=uploaded_file)
+                course.course_files.add(course_file)
+            except Course.DoesNotExist:
+                pass
+    
     courses = Course.objects.all()
     context = {'courses': courses}
     return render(request, 'auth/admin_courses.html', context)
+
+
+
 # Create your views here.
 def home(request):
     courses = Course.objects.all()
@@ -163,7 +177,7 @@ def signup(request):
         return redirect("/signin")
         
     return render(request, "auth/signup.html")
-from .models import Course
+from .models import Course, CourseFile
 
 def courses(request):
     courses = Course.objects.all()

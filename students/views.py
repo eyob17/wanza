@@ -49,12 +49,13 @@ def home(request):
     courses = Course.objects.all()
     context = {'courses': courses}
     return render(request, "auth/index.html", context)
-def home(request):
-    student = request.user.Student
-    student = {'studnet': student}
-    return render(request, "auth/index.html", student)
+
+    
 def nav(request):
-    return render(request, "auth/nav.html")
+    student = Student.objects.all()
+    student = {'studnet': student}
+    return render(request, "auth/nav.html", student)
+    
 def contactus(request):
     return render(request, "auth/contactus.html")
 def services(request):

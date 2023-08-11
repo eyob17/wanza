@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    {% load static %}
+    <script src="{% static 'scripts/script.js' %}" type="text/javascript"></script>  
+    <link href="{% static 'styles/style.css' %}" rel="stylesheet">  
+    
+  </head>
+  <body>
+  
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    -->
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNmLtwXurVCDN3pBOLEngftAjYFS_NfEYOFw&usqp=CAU" height="50"
+          alt="MDB Logo" loading="lazy" /><label >WARKA</label>
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'index' %}>Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'courses' %}>Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'contactus' %}>Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'services' %}>Services</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+
+    <!-- Right elements -->
+   
+
+      <!-- Notifications -->
+    
+      <!-- Avatar -->
+      
+          
+            {%if user.is_authenticated%}
+            {% if user.is_staff %}
+        <a href="students_detail" class="btn btn-primary">Admin Panel</a>
+       {%endif%}
+            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+            height="25" alt="Black and White Portrait of a Man" loading="lazy" />
+            <a class="nav-link" href="#">{{user.first_name}}</a> 
+              <a href={% url 'signout' %} class="btn btn-primary">signout</a>
+              <a href="/editprofile/" class="btn btn-primary">Edit Profile</a>
+            {% else %}
+            <a href={% url 'signup' %} class="btn btn-primary">signup</a>
+            <a href={% url 'signin' %} class="btn btn-primary">signin</a>
+            {% endif %}
+        </a>
+     
+      
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+
+  </body>
+</html>
+<style>
+  body {
+    background: linear-gradient(to right, #abe5fc, #59cff7, #4a93e6);
+    font-family: 'Poppins', sans-serif;
+}
+  /* Sticky navbar */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  /* Brand */
+  .navbar-brand {
+    font-family: 'Yellowtail', cursive;
+    font-size: 32px;
+    font-weight: bold;
+    color: #084B8C !important; 
+    padding: 10px;
+  }
+  
+  /* Nav links */
+  .nav-link {
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    transition: 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    background: #bdd7ee; 
+    border-radius: 5px;
+  }
+  
+  /* Buttons */  
+  .btn-primary {
+    background: linear-gradient(to right, #084B8C, #0689B7);
+    border: none;
+    border-radius: 50px;
+    padding: 8px 25px;
+  }
+  .btn-primary:hover {
+    background-color: #034678;
+    border-color: #034678; 
+  }
+  /* Burger menu */
+  .navbar-toggler {
+    padding: 0;
+    font-size: 32px;
+    border: none;
+  } 
+  
+  @media (max-width: 768px) {
+  
+    .navbar-nav {  
+      text-align: center;
+      padding: 20px 0;
+    }
+    
+    .nav-link {
+      padding: 8px 16px;
+    }
+  
+  }
+  </style>

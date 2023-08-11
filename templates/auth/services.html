@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
+  </head>
+  <body>
+    {% include 'auth/nav.html' %} 
+    <section class="services">
+        <div class="container">  
+         
+          <div class="row">
+      
+           
+      
+            
+    {% for service in services %}
+      
+        {% if forloop.counter <= 15 %}
+        <div class="jumbotron">
+            <div class="card mb-4 display-4">
+                <img src="{{ service.service_image }}" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">{{ service.service_name }}</h5>
+                <p class="card-text">{{ service.service_description }}</p>
+                <hr>
+              </div>
+            </div>
+        </div>
+        {% endif %}
+      
+    {% endfor %}
+      
+          
+      
+        </div>
+      </section>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    -->
+  </body>
+  {% include 'auth/footer.html' %}
+</html> <style>.services {
+    padding: 50px 0;
+  }
+  .jumbotron {
+    padding: 4rem 10rem;
+    background: linear-gradient(to top right, white, #72cafa);
+}
+  .card-body {
+    padding: 0; 
+  }
+  
+  .services .card {
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+  }
+  
+  .card-text {
+    padding: 10px 15px;
+    height: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size:50%;
+  }
+  
+  .card-title {
+    padding: 10px 15px; 
+    background: linear-gradient(to bottom right, white, #72cafa);
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  
+  .services .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }</style>

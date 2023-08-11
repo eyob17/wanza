@@ -1,0 +1,43 @@
+<!-- students_detail.html -->
+{% include 'auth/adminnav.html' %}
+<style> .table{ background-color: aliceblue;}
+   </style>
+<h1 style="background-color:  #00bf72; ">All Users Details</h1>
+
+  <h1>Admin Courses</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        
+        <th>Course Type</th>
+        <th>Course PDF</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+        <tr>
+          <td>{{ course.course_name }}</td>
+          
+          <td>{{ course.course_type }}</td>
+          <td>
+            {% if course.course_pdf %}
+              <a href="{{ course.course_pdf.url }}" target="_blank">View PDF</a>
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="course_pdf">
+                <button type="submit">Change PDF</button>
+              </form>
+            {% else %}
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="course_pdf">
+                <button type="submit">Upload PDF</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+

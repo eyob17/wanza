@@ -16,11 +16,13 @@
                 <h5 class="card-title">{{ course.course_name }}</h5>
                 <h6 class="card-title">{{ course.course_type }}</h6>
                 <p class="card-text">{{ course.course_description }}</p>
-                <a href="#" class="btn btn-primary">Take course</a>
-                {% if user.active %}
+                
+                {%if user.is_authenticated%}
                 {% if course.course_pdf %}
-                <a href="{{ course.course_pdf.url }}" class="btn btn-secondary" download>Download PDF</a>
+                <a href="{{ course.course_pdf.url }}" class="btn btn-primary" download>Download PDF</a>
             {% endif %}
+            {% else %}
+            <a href="signup" class="btn btn-primary">Take course</a>
             {% endif %}
               </div>
             </div>

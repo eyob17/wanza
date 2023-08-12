@@ -176,8 +176,9 @@ def signup(request):
         student.save()
         messages.success(request,"successfully registered")
         return redirect("/signin")
-        
-    return render(request, "auth/signup.html")
+    courses = Course.objects.all()
+    context = {'courses': courses}
+    return render(request, "auth/signup.html" , context)
 from .models import Course, CourseFile
 
 def courses(request):

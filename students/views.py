@@ -71,10 +71,10 @@ def admin_courses(request):
 
 
 
-# Create your views here.
 def home(request):
     courses = Course.objects.all()
-    context = {'courses': courses}
+    services = Services.objects.all()
+    context = {'courses': courses, 'services': services}
     return render(request, "auth/index.html", context)
 
     

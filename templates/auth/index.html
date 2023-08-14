@@ -86,10 +86,38 @@
           
         {% endfor %}
       </div>
-    
-    
-    </div>
-    
+      <header class="courses-header">
+        <h2>Services</h2>
+      </header>
+      <section class="services">
+        <div class="container">  
+         
+          <div class="row">
+      
+           
+      
+            
+    {% for service in services %}
+      
+        {% if forloop.counter <= 3 %}
+        <div class="jumbotron">
+            <div class="card mb-4 display-4">
+                <img src="{{ service.service_image }}" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">{{ service.service_name }}</h5>
+                <p class="card-text">{{ service.service_description }}</p>
+                <hr>
+              </div>
+            </div>
+        </div>
+        {% endif %}
+      
+    {% endfor %}
+      
+          
+      
+        </div>
+      </section>
       
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -199,5 +227,51 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+    
+
+
+
+  .services {
+    padding: 50px 0;
+  }
+  .jumbotron {
+    padding: 4rem 10rem;
+    background: linear-gradient(to top right, white, #72cafa);
+}
+.services.card-body {
+    padding: 0; 
+  }
+  
+  .services .card {
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+  
+  .services .card-img-top {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+  }
+  
+  .services .card-text {
+    padding: 10px 15px;
+    height: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size:50%;
+  }
+  
+  .services .card-title {
+    padding: 10px 15px; 
+    background: linear-gradient(to bottom right, white, #72cafa);
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  
+  .services .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);}
 </style>
   

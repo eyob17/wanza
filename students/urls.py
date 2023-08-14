@@ -21,6 +21,7 @@ urlpatterns = [
     path('students_detail',views.students_detail, name="students_detail"),
     path('admin_courses',views.admin_courses, name="admin_courses"),
     path('courses',views.courses, name="courses"),
+    path('cla',views.cla, name="cla"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

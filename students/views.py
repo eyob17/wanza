@@ -20,54 +20,72 @@ def is_staff_user(user):
     return user.is_staff
 
 @user_passes_test(is_staff_user)
-def students_detail(request):
+def cla(request):
+    signed_up_course_name = request.user.student.course_type
+    all_users = Student.objects.filter(course_type=signed_up_course_name)
+    return render(request, 'auth/class.html', {'users': all_users})
     # Retrieve all users
+    
+@user_passes_test(is_staff_user)
+def students_detail(request):
     all_users = Student.objects.all()
     return render(request, 'auth/students_detail.html', {'users': all_users})
+    # Retrieve all users
+   
 @user_passes_test(is_staff_user)
 def admin_courses(request):
+    signed_up_course_name = request.user.student.course_type
+    course = Course.objects.get(course_name=signed_up_course_name)
+    
     if request.method == 'POST':
-        course_name = request.POST.get('course_name')
         course_file_id = request.POST.get('course_file_id')
         new_uploaded_file = request.FILES.get('new_course_file')
         uploaded_file = request.FILES.get('course_file')
-        if course_name and course_file_id and new_uploaded_file:
+        
+        if course_file_id and new_uploaded_file:
             try:
-                course = Course.objects.get(course_name=course_name)
                 course_file = CourseFile.objects.get(id=course_file_id)
                 course_file.file = new_uploaded_file
                 course_file.save()
-            except (Course.DoesNotExist, CourseFile.DoesNotExist):
+            except CourseFile.DoesNotExist:
                 pass
-        if course_name and uploaded_file:
-              try:
-                  course = Course.objects.get(course_name=course_name)
-                  course_file = CourseFile.objects.create(file=uploaded_file)
-                  course.course_files.add(course_file)
-              except Course.DoesNotExist:
-                  pass
-      
-    courses = Course.objects.all()
-    context = {'courses': courses}
+        
+        if uploaded_file:
+            try:
+                course_file = CourseFile.objects.create(file=uploaded_file)
+                course.course_files.add(course_file)
+            except Course.DoesNotExist:
+                pass
+    
+    context = {'courses': [course]}  # Pass the filtered course as a list
     return render(request, 'auth/admin_courses.html', context)
-
-
+#this code shows all courses in the admin_courses vvv
 # def admin_courses(request):
 #     if request.method == 'POST':
 #         course_name = request.POST.get('course_name')
+#         course_file_id = request.POST.get('course_file_id')
+#         new_uploaded_file = request.FILES.get('new_course_file')
 #         uploaded_file = request.FILES.get('course_file')
-
-#         if course_name and uploaded_file:
+#         if course_name and course_file_id and new_uploaded_file:
 #             try:
 #                 course = Course.objects.get(course_name=course_name)
-#                 course_file = CourseFile.objects.create(file=uploaded_file)
-#                 course.course_files.add(course_file)
-#             except Course.DoesNotExist:
+#                 course_file = CourseFile.objects.get(id=course_file_id)
+#                 course_file.file = new_uploaded_file
+#                 course_file.save()
+#             except (Course.DoesNotExist, CourseFile.DoesNotExist):
 #                 pass
-    
+#         if course_name and uploaded_file:
+#               try:
+#                   course = Course.objects.get(course_name=course_name)
+#                   course_file = CourseFile.objects.create(file=uploaded_file)
+#                   course.course_files.add(course_file)
+#               except Course.DoesNotExist:
+#                   pass
+      
 #     courses = Course.objects.all()
 #     context = {'courses': courses}
 #     return render(request, 'auth/admin_courses.html', context)
+
 
 
 

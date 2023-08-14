@@ -28,19 +28,46 @@ def students_detail(request):
 def admin_courses(request):
     if request.method == 'POST':
         course_name = request.POST.get('course_name')
+        course_file_id = request.POST.get('course_file_id')
+        new_uploaded_file = request.FILES.get('new_course_file')
         uploaded_file = request.FILES.get('course_file')
-
-        if course_name and uploaded_file:
+        if course_name and course_file_id and new_uploaded_file:
             try:
                 course = Course.objects.get(course_name=course_name)
-                course_file = CourseFile.objects.create(file=uploaded_file)
-                course.course_files.add(course_file)
-            except Course.DoesNotExist:
+                course_file = CourseFile.objects.get(id=course_file_id)
+                course_file.file = new_uploaded_file
+                course_file.save()
+            except (Course.DoesNotExist, CourseFile.DoesNotExist):
                 pass
-    
+        if course_name and uploaded_file:
+              try:
+                  course = Course.objects.get(course_name=course_name)
+                  course_file = CourseFile.objects.create(file=uploaded_file)
+                  course.course_files.add(course_file)
+              except Course.DoesNotExist:
+                  pass
+      
     courses = Course.objects.all()
     context = {'courses': courses}
     return render(request, 'auth/admin_courses.html', context)
+
+
+# def admin_courses(request):
+#     if request.method == 'POST':
+#         course_name = request.POST.get('course_name')
+#         uploaded_file = request.FILES.get('course_file')
+
+#         if course_name and uploaded_file:
+#             try:
+#                 course = Course.objects.get(course_name=course_name)
+#                 course_file = CourseFile.objects.create(file=uploaded_file)
+#                 course.course_files.add(course_file)
+#             except Course.DoesNotExist:
+#                 pass
+    
+#     courses = Course.objects.all()
+#     context = {'courses': courses}
+#     return render(request, 'auth/admin_courses.html', context)
 
 
 
@@ -181,7 +208,15 @@ def signup(request):
     return render(request, "auth/signup.html" , context)
 from .models import Course, CourseFile
 
+# def courses(request):
+#     courses = Course.objects.all()
+#     context = {'courses': courses}
+#     return render(request, 'auth/courses.html', context)
+
+
+@login_required
 def courses(request):
-    courses = Course.objects.all()
+    signed_up_course_name = request.user.student.course_type
+    courses = Course.objects.filter(course_name=signed_up_course_name)
     context = {'courses': courses}
     return render(request, 'auth/courses.html', context)

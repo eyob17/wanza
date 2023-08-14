@@ -3,7 +3,7 @@
 <header class="courses-header">
   <h2>Courses</h2>
 </header>
-<div class="container mt-5">
+{% comment %} <div class="container mt-5">
   
   <div class="row">
     {% for course in courses %}
@@ -34,7 +34,35 @@
 
  
   </div>
+</div> {% endcomment %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% get_media_prefix %}{{ courses.0.course_image }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ courses.0.course_name }}</h5>
+          <h6 class="card-title">{{ courses.0.course_type }}</h6>
+          <p class="card-text">{{ courses.0.course_description }}</p>
+          
+          {% if user.is_authenticated %}
+            {% if courses.0.course_files.all %}
+              <a href="{{ courses.0.course_files.all.0.file.url }}" class="btn btn-primary" download>Download Main PDF</a>
+              <br>
+              {% for course_file in courses.0.course_files.all %}
+                <a href="{{ course_file.file.url }}" class="btn btn-secondary" download>{{ course_file.file.name }}</a>
+                <br>
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            <a href="signup" class="btn btn-primary">Take course</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+{% include 'auth/footer.html' %}
 <style>
 
   .card {

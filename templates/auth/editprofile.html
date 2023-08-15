@@ -90,12 +90,14 @@
                         <div class="form-outline flex-fill mb-0">
                           
                           <div class="input-control">
-                          <select class="form-select" aria-label="Default select example" id="select"
+                            <select class="form-select" aria-label="Default select example" id="select"
                           name="select">
                             <option selected>Courses</option>
-                            <option value="1">Full Stack Web Development</option>
-                            <option value="2">Front-End Web Development</option>
-                            <option value="3">Back-End Web Development</option>
+                            {% for course in courses %}
+                            {% if forloop.counter <= 10  %}
+                            <option value="{{ course.course_name }}">{{ course.course_name }}</option>
+                            {% endif %}
+                          {% endfor %}
                           </select>
                           <label class="form-label" for="form3Example3c">Select your course</label>
                        <div class="error"></div>

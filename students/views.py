@@ -117,7 +117,7 @@ def editprofile(request):
         fname = request.POST.get('fname2')
         lname = request.POST.get('lname2')
         email = request.POST.get('email2')
-        course = request.POST.get('select2')
+        course = request.POST.get('select')
         password = request.POST.get('password22')
         batch = request.POST.get('batch2')
 
@@ -136,8 +136,9 @@ def editprofile(request):
         messages.success(request, "Successfully updated profile")
         return redirect("/index")
 
-    # Save to db
-    return render(request, "auth/editprofile.html")
+    courses = Course.objects.all()
+    context = {'courses': courses}    # Save to db
+    return render(request, "auth/editprofile.html", context)
 
     
 def signin(request):

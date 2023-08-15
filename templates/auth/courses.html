@@ -47,7 +47,7 @@
           
           {% if user.is_authenticated %}
             {% if courses.0.course_files.all %}
-              <a href="{{ courses.0.course_files.all.0.file.url }}" class="btn btn-primary" download>Download Main PDF</a>
+              <a href="{{ courses.0.course_files.all.0.file.url }}" class="btn btn-primary" download>Download new PDF</a>
               <br>
               {% for course_file in courses.0.course_files.all %}
                 <a href="{{ course_file.file.url }}" class="btn btn-secondary" download>{{ course_file.file.name }}</a>
